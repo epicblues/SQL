@@ -15,26 +15,28 @@ order by max_salary desc;
 
 select first_name, manager_id, commission_pct, salary 
 from employees
-where commission_pct is null and salary>3000;
+where manager_id is not null and commission_pct is null and salary>3000;
 
 -- 문제 4
 
 select job_title, max_salary 
 from jobs
+where max_salary >= 10000
 order by max_salary desc;
 
 -- 문제 5
 
 select first_name, salary, nvl(commission_pct,0)
 from employees
+where salary < 14000 and salary>=10000
 order by salary desc;
 
 -- 문제 6
 
-select first_name,
-salary,
-to_char(hire_date,'YYYY-MM'),
-department_id
+select first_name 이름,
+salary 월급,
+to_char(hire_date,'YYYY-MM') 입사일,
+department_id 부서번호
 from employees
 where department_id in (10,90,100);
 
@@ -57,6 +59,6 @@ select UPPER(country_name) from countries
     
 -- 문제 10
 
-select first_name,salary, replace(phone_number,'.','-'), hire_date
+select first_name,salary, replace(phone_number,'.','-') 전화번호, hire_date
 from employees
 where hire_date < '03/12/31';
