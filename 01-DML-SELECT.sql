@@ -176,6 +176,139 @@ where first_name like'_a%';
 
 
 
+-- ORDER BY 정렬
+-- 오름차순 : 작은값 -> 큰 값 기본값
+-- 내림차순 : 큰 값 -> 작은 값.
+select department_id, salary,first_name
+from employees
+order by department_id asc;
+
+select first_name
+from employees
+where salary>=10000
+order by salary desc;
+
+select department_id, salary, first_name
+from employees
+order by department_id,salary desc;
+
+-----------
+-- 단일행 함수
+-----------
+
+-- 한 개의 레코드를 입력으로 받는 함수
+-- 문자열 단일행 함수 연습
+select first_name, last_name
+from employees;
+
+select 
+    first_name,last_name,
+    concat(first_name,concat(' ',last_name)) 연결,
+    INITCAP(first_name || ' ' || last_name), -- 각 단어의 첫글자만 대문자
+    LOWER(first_name), -- 모두 소문자
+    upper(first_Name), -- 모두 대문자
+    LPAD(first_name,10,'*'),
+    rpad(first_name,10,'*') -- 오른쪽 채우기
+from employees;
+
+select ltrim('         abc'),rtrim('abc            '), trim('*' from '*****db****'),
+substr('Oracle Database', 1,4), -- 부분 문자열
+substr('oracle database', 1,8)
+from dual;
+
+-- 수치형 단일행 함수
+select abs(-3.14), -- 절대값
+    ceil(3.14), -- 올림
+    floor(3.14), -- 소수점 버림(바닥)
+    mod(7,3), -- 나머지
+    POWER(2,4), -- 제곱: 2의 4제곱
+    ROUND(3.5), -- 소수점 반올림
+    ROUND(3.14159, 3), -- 소수점 3자리까지 반올림으로 표현
+    TRUNC(3.5), -- 소수점 버리기
+    TRUNC(3.14159,3), -- 소수점 3자리까지 버림으로 표현
+    SIGN(-10) -- 부호 함수
+from dual;
+
+--------
+-- Date Format
+--------
+
+-- 현재 날짜와 시간
+
+SELECT SYSDATE FROM DUAL; -- 1행
+SELECT SYSDATE FROM EMPLOYEES; --employees의 레코드 개수 만큼
+
+-- 날짜 관련 단일행 함수
+select sysdate,
+    add_months(sysdate,2), -- 2개월 후
+    last_day(sysdate), -- 이번 달의 마지막 날
+    round(months_between(sysdate,'99/12/31')), -- 1999년 마지막 날 이후 몇 달이 지났나
+    next_day(sysdate,5), 
+    round(sysdate,'MONTH'),
+    trunc(sysdate,'MONTH'),
+    round(sysdate,'year'),
+    trunc(sysdate,'year')
+from dual;
+    
+select first_name, to_char(salary*12, '$999,999.99') "SAL"
+from employees
+where department_id = 110;
+
+------
+-- 변환 함수
+------
+
+-- TO_NUMBER(s, fmt) : 문자열을 포맷에 맞게 수치형으로 변환
+-- TO_DATE(s, fmt) : 문자열을 포맷에 맞게 날짜형으로 변환.
+-- TO_CHAR(o, fmt) : 숫자 or 날짜를 포맷에 맞게 문자형으로 변환.
+
+-- TO_CHAR
+select first_name,hire_date ,
+    TO_char(hire_date, 'YYYY-MM-DD HH24:MI:SS'),
+    to_char(sysdate,'YYYY-MM-DD HH24:MI:SS')
+from employees;
+
+select to_char(3000000,'L9,999,999')
+    from dual;
+    
+select first_name, to_char(salary * 12, '$999,999.00') SAL
+from employees;
+
+-- TO_NUMBER 문자형을 숫자형으로
+select to_number('2021'),
+    to_number('$1,450.13','$999,999.99')
+from dual;
+
+-- TO_date 문자형을 날자형으로
+
+select to_date('1999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+from dual;
+
+-- 날짜 연산
+-- Date +(-) number : 날짜에 일수 더하기, 빼기
+-- date - date : 두 date사이의 일수
+-- date +(-) Number / 24 : 날짜에 시간 더하기
+
+select to_char(sysdate, 'YYYY/MM/DD HH24:MI'),
+    sysdate + 1, -- 1일 뒤
+    sysdate - 1, -- 1일 전
+    sysdate - to_date('19991231'),
+    to_char(sysdate + 13/24,'YY/MM/DD HH24:MI') -- 13시간 후
+    from dual;
+
+-----------------------
+-- NULL 관련
+-----------------------
+
+
+-- NVL
+select first_name, salary, commission_pct,salary + salary*nvl(commission_pct,0) 커미션
+from employees;
+
+
+    
+
+
 
 
 
