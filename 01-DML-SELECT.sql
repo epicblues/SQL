@@ -302,8 +302,53 @@ select to_char(sysdate, 'YYYY/MM/DD HH24:MI'),
 
 
 -- NVL
-select first_name, salary, commission_pct,salary + salary*nvl(commission_pct,0) 커미션
+select first_name,
+    salary,
+    commission_pct,
+    salary + salary*nvl(commission_pct,0) 커미션
 from employees;
+
+--NVL2 함수
+select first_name,
+    salary,
+    commission_pct,
+    nvl2(commission_pct, salary*commission_pct, 0) commission
+from employees;
+
+-- CASE 함수
+-- AD 관련 직원에게는 20%, SA 관련 직원에게는 10%
+-- IT 관련 직원에게는 8%, 나머지는 5%
+
+select first_name, job_id, 
+    case substr(job_id, 1,2)
+    when 'AD' then salary * 0.2
+    when 'SA' then salary * 0.1
+    when 'IT' then salary * 0.08
+    else salary*0.05 end as "추가 임금"
+from employees;
+
+-- decode함수
+select first_name, job_id,
+    decode(substr((job_id),1,2), 'AD', salary*0.2,
+        'SA', salary*0.1,
+        'IT', salary*0.08,
+        salary*0.05) as "추가 임금"
+from employees;
+
+-- [연습문제]
+select first_name, department_id, 
+    case   when department_id between 10 and 30 then 'A-GROUP'
+     when  department_id  between  40 and 50 then 'B-GROUP'
+    when  department_id  between  60 and 100 then 'C-GROUP'
+     else   'D-GROUP' end
+from employees;
+
+
+
+
+    
+
+
 
 
     
