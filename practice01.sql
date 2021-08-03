@@ -53,9 +53,20 @@ order by length(department_name) desc;
 
 -- 문제 9
 
-select UPPER(country_name) from countries
-    where region_id is not null
-    order by country_name;
+select UPPER(countries.country_name) from countries 
+inner join 
+(select distinct locations.country_id 
+from locations 
+inner join departments on locations.location_id=departments.location_id) b
+on countries.country_id = b.country_id
+order by countries.country_name asc;
+
+
+    
+
+
+
+
     
 -- 문제 10
 
