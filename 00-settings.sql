@@ -18,3 +18,4 @@ ALTER SESSION SET "_ORACLE_SCRIPT" = true;
  SELECT * FROM tab;
  -- 특정 테이블 정보 확인
 DESC employees;
+
