@@ -44,19 +44,47 @@ ON  emp.manager_id = man.employee_id
 WHERE emp.hire_date < man.hire_date;
 
 -- 문제 6
-SELECT country_name,coun.country_id, city, depCon.location_id,department_name,department_id
-FROM 
-(SELECT * FROM departments 
-INNER JOIN locations 
-ON departments.location_id = locations.location_id) depCon 
-LEFT JOIN countries
-ON depCon.country_id = countries.country_id
+select countries.country_name, countries.country_id,locations.location_id,city, department_name, department_id
+FROM departments, locations,countries
+WHERE departments.location_id = locations.location_id and locations.country_id = countries.country_id
 ORDER BY country_name;
 
-SELECT * FROM departments 
-INNER JOIN locations 
-ON departments.location_id = locations.location_id
+-- 문제 7
 
+select employees.employee_id, first_name || ' ' || last_name "이름(풀네임)", job_history.job_id, start_date, end_date
+from employees 
+right join job_history
+on employees.employee_id = job_history.employee_id
+where job_history.job_id = 'AC_ACCOUNT';
+
+-- 문제 8
+select
+    departments.department_id,
+    departments.department_name,
+    departments.manager_id,
+    city,
+    countries.country_name,
+    region_name
+from 
+    departments, employees, locations, countries, regions
+where departments.manager_id = employee_id
+    and departments.location_id = locations.location_id
+    and locations.country_id = countries.country_id
+    and countries.region_id = regions.region_id;
+    
+-- 문제 9
+select
+    emp.employee_id 사번,
+    emp.first_name 이름,
+    department_name 부서명,
+    man.first_name "매니저 이름"
+from
+    (employees emp inner join employees man on emp.manager_id = man.employee_id)
+    left join departments
+    on emp.department_id = departments.department_id;
+
+
+    
 
 
 
