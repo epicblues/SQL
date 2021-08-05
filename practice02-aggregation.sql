@@ -67,16 +67,16 @@ ORDER BY 차이 desc;
 
 SELECT
     manager_id 관리자_ID,
-    round(avg(emp.salary)) 평균급여,
-    min(emp.salary) 최소급여,
-    max(emp.salary) 최대급여
+    round(avg(salary)) 평균급여,
+    min(salary) 최소급여,
+    max(salary) 최대급여
 from 
-    employees emp
+    employees
 where
-    emp.hire_date >= '05/01/01' 
+    hire_date >= '05/01/01' 
 group by manager_id
-having avg(emp.salary)>=5000
-order by avg(emp.salary) desc;
+having avg(salary)>=5000
+order by avg(salary) desc;
 
 -- 문제 10
 
