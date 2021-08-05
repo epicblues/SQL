@@ -9,6 +9,8 @@ from employees, (select avg(salary) av,max(salary) ma from employees) avgMax
 where salary >= avgMax.av
 order by 급여;
 
+
+
 -- 문제 3
 -- 직원 중  Steven King이 소속된 부서의 LOCATION_ID
 

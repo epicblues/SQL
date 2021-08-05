@@ -34,6 +34,7 @@ SELECT * FROM DBA_USERS; -- DB내의 모든 USER
 -- 새로만든 사용자 확인
 SELECT * FROM DBA_USERS WHERE username = 'C##BITUSER';
 
+
 -- 권한(Privilege)과 역할(ROLE)
 -- 특정 작업 수행을 위해 적절한 권한을 가져야 한다. 
 -- CREATE SESSION
@@ -45,11 +46,13 @@ GRANT create session TO C##BITUSER;
 -- 일반적으로 CONNECT, RESOURCE 롤을 부여하면 일반사용자의 역할 수행 가능.
 GRANT connect, resource TO C##BITUSER;
 
+
 -- Oracle 12 이후로는 임의로 TABLESPACE를 할당 해 줘야 한다.
 ALTER USER C##BITUSER  -- 사용자 정보 수정
     DEFAULT TABLESPACE USERS -- 기본 테이블 스페이스 USERS에 지정
     QUOTA UNLIMITED ON USERS; -- 사용 용량 지정
     
+
 -- C##bituser 사용자에게 HR.EMPLOYEES를 SELECT 할 수 있는 권한 부여
 GRANT select ON HR.employees TO C##bituser;
 
