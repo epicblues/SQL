@@ -68,6 +68,12 @@ SELECT *
 from (select RANK() OVER (ORDER BY hire_date asc) as RN,employee_id, first_name, salary, hire_date from employees)
 where RN<= 15 and RN >=11;
 
-SELECT rm.rownum rn,rm.*
-from (select employee_id, first_name, salary, hire_date from employees order by hire_date) rm
-where rn between 11 and 15;
+select * from (
+select rownum rn, employee_id, first_name, salary, hire_date from (
+select employee_id, first_name, salary, hire_date from employees order by hire_date))
+where rn >=11 and rn<=15
+;
+
+
+
+select employee_id, first_name, salary, hire_date from employees order by hire_date;
