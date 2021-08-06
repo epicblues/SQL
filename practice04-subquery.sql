@@ -4,9 +4,9 @@ SELECT count(salary) from employees
 where salary < (SELECT AVG(salary) from employees);
 
 -- 문제 2
-select employee_id 사원번호, first_name 이름, salary 급여, avgMax.av 평균급여, avgMax.ma 최대급여
-from employees, (select avg(salary) av,max(salary) ma from employees) avgMax
-where salary >= avgMax.av
+select employee_id 사원번호, first_name 이름, salary 급여, t.avgSalary 평균급여, t.maxSalary 최대급여
+from employees, (select avg(salary) avgSalary,max(salary) maxSalary from employees) t
+where salary >= t.avgSalary
 order by 급여;
 
 
@@ -45,15 +45,15 @@ ORDER BY salary desc;
 -- 테이블 조인
 SELECT emp.employee_id, emp.first_name, salary, emp.department_id 
 from employees emp, 
-(SELECT department_id,MAX(salary) maxsal from employees group by department_id) groupMax
-where emp.department_id = groupMax.department_id and emp.salary = groupMax.maxsal
+(SELECT department_id,MAX(salary) maxsal from employees group by department_id) t
+where emp.department_id = t.department_id and emp.salary = t.maxsal
 order by salary desc;
 
 -- 문제 6
-SELECT job_title, maxSal 최고연봉 from 
-jobs,(SELECT job_id, MAX(salary) maxSal from employees group by job_id) maxJob
+SELECT job_title, sumSal 연봉총합 from 
+jobs,(SELECT job_id, SUM(salary) sumSal from employees group by job_id) maxJob
 where jobs.job_id = maxjob.job_id
-ORDER BY maxSal desc;
+ORDER BY sumSal desc;
 
 -- 문제7.
 --자신의 부서 평균 급여보다 연봉(salary)이 많은 직원의 직원번호(employee_id), 이름
@@ -67,3 +67,7 @@ where salary > (SELECT avg(salary) from employees where e.department_id = depart
 SELECT *
 from (select RANK() OVER (ORDER BY hire_date asc) as RN,employee_id, first_name, salary, hire_date from employees)
 where RN<= 15 and RN >=11;
+
+SELECT rm.rownum rn,rm.*
+from (select employee_id, first_name, salary, hire_date from employees order by hire_date) rm
+where rn between 11 and 15;

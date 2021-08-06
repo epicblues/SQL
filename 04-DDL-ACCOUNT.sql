@@ -61,7 +61,12 @@ GRANT select ON HR.employees TO C##bituser;
 REVOKE select ON HR.employees FROM C##bituser;
 GRANT SELECT ON HR.employees TO C##BITUSER;
 
+REVOKE select any table FROM C##KMSBABO;
 
 
+
+ALTER USER c##bituser identified by bituser;
 -- 전체 권한 부여시
 -- GRANT ALL privileges ...
+
+select * from dba_role_privs where grantee like 'C##%';
