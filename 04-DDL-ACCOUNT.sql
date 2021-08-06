@@ -11,6 +11,7 @@
 
 CREATE USER c##bituser IDENTIFIED BY bituser;
 
+alter 
 -- SQLPLUS에서 사용자로 접속
 -- 사용자 삭제 : DROP USER
 DROP USER c##bituser CASCADE;  -- CASCADE는 연결된 모든 것을 함께 삭제
@@ -59,6 +60,8 @@ GRANT select ON HR.employees TO C##bituser;
 -- 객체 권한 회수
 REVOKE select ON HR.employees FROM C##bituser;
 GRANT SELECT ON HR.employees TO C##BITUSER;
+
+
 
 -- 전체 권한 부여시
 -- GRANT ALL privileges ...
