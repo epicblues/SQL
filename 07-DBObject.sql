@@ -66,3 +66,31 @@ SELECT * FROM USER_OBJECTs;
 SELECT * FROM USER_VIEWS;
 
 SELECT object_name, created, status from USER_OBJECTS WHERE object_type = 'VIEW';
+
+-- INDEX : 검색 속도 증가
+-- INSERT, UPDATE, DELETE -> 인덱스의 갱신이 일어난다.
+-- hr.employees 테이블을 복사 -> s_emp 테이블 생성
+
+CREATE TABLE s_emp as SELECT * from hr.EMPLOYEES;
+SELECT * FROM s_emp;
+
+-- s_emp.employeed_id에 UNIQUE_INDEX 부여
+CREATE UNIQUE INDEX s_emp_id
+    ON s_emp (employee_id);
+
+-- INDEX를 위한 DICTIONARY;
+SELECT * FROM USER_INDEXES;
+SELECT * FROM USER_IND_COLUMNS; -- COLUMN_POSITION 컬럼 위치.
+
+-- 어느 테이블에 어느 컬럼에 S_EMP_ID가 부여되었는가?
+
+SELECT t.index_name, t.table_name, c.column_name, c.column_position 
+FROM USER_INDEXES t, USER_IND_COLUMNS c WHERE t.index_name = c.index_name
+ AND c.index_name = 'S_EMP_ID';
+ 
+ -- 인덱스 삭제
+ DROP INDEX s_emp_id;
+  SELECT * FROM USER_INDEXES;
+  SELECT * FROM S_emp;
+  
+  -- 인덱스는 테이블과 독립적이다. 다양한 방법으로 인덱스를 사용해도 지장 없음. 
