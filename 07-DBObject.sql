@@ -55,3 +55,14 @@ select * from book_detail;
 
 -- Complex View는 갱신이 불가
 UPDATE book_detail SET author_name = '소설가'; -- ERROR
+
+-- View의 삭제
+-- book detail은 book, author 테이블을 기반으로 함.
+drop view book_detail; -- VIEW 삭제
+
+SELECT * FROM USER_OBJECTs;
+
+-- VIEW 확인을 위한 DICTIONARY
+SELECT * FROM USER_VIEWS;
+
+SELECT object_name, created, status from USER_OBJECTS WHERE object_type = 'VIEW';
