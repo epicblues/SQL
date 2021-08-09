@@ -94,3 +94,66 @@ FROM USER_INDEXES t, USER_IND_COLUMNS c WHERE t.index_name = c.index_name
   SELECT * FROM S_emp;
   
   -- 인덱스는 테이블과 독립적이다. 다양한 방법으로 인덱스를 사용해도 지장 없음. 
+select * from author;
+
+-- SEQUENCE
+-- author 테이블 정보 확인(PK)
+-- 시퀀스를 쓰는 이유 -> 트랜젝션 충돌 방지(SELECT는 트랜잭션 대상이 아니다.)
+SELECT MAX(author_id) from author;
+
+INSERT INTO author (author_id, author_name) 
+values ((select MAX(author_id) + 1 from author), 'Unknown');
+
+select * from author;
+
+-- 안전하지 않을 수 있다.
+-- 시퀀스 생성, 안전하게 중복 제거
+rollback;
+
+CREATE SEQUENCE seq_author_id 
+START WITH 3
+INCREMENT BY 1
+MAXVALUE 1000000;
+INSERT INTO AUTHOR(author_id, author_name) VALUES(SEQ_AUTHOR_ID.nextval,'UNKNOWN');
+SELECT * FROM author;
+UPDATE AUTHOR set author_name = 'STEVEN KING'  where author_name = 'UNKNOWN';
+SELECT * FROM USER_SEQUENCES;
+CREATE SEQUENCE my_seq
+    start with 1
+    INCREMENT BY 2
+    MAXVALUE 10;
+    
+-- PSEUDO 컬럼 (CURRVAL:현재 시퀀스 값, NEXTVAL: 값 증가 후 시퀀스 값 반환)
+SELECT MY_SEQ.NEXTVAL FROM DUAL;
+SELECT MY_SEQ.CURRVAL FROM DUAL; -- 처음에 안나옴(NEXTVAL로 시퀀스를 시작해야함)
+
+ALTER SEQUENCE my_SEQ
+    INCREMENT BY 3
+    MAXVALUE 1000000;
+    
+-- SEQUENCE를 위한 DICTIONARY 
+SELECT * FROM USER_SEQUENCES;
+SELECT * FROM USER_OBJECTS WHERE OBJECT_TYPE = 'SEQUENCE';
+
+
+
+-- 시퀀스의 삭제
+
+DROP SEQUENCE my_seq;
+
+
+-- book의 book_id를 위한 시퀀스 생성
+desc book;
+SELECT MAX(book_id) from book;
+
+CREATE SEQUENCE SEQ_BOOK_ID 
+    START WITH 3
+    INCREMENT BY 1
+    MAXVALUE 1000000;
+    
+SELECT * FROM USER_SEQUENCES;
+
+desc book;
+
+
+    
