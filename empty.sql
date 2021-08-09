@@ -102,3 +102,60 @@ INSERT INTO emp123 (
 select * from user_tab_columns;
 
 select * from emp123 where salary = 6000;
+
+CREATE TABLE emp_kms as SELECT * from hr.employees;
+
+select * from emp_kms;
+grant create view to C##kmsbabo;
+CREATE VIEW kms_view as SELECT * from emp_kms where salary between 10000 and 15000;
+
+select first_name, salary, email || '@hanmail.net', replace(phone_number,'.','-') from kms_view;
+
+SELECT * from USER_INDEXES;
+CREATE INDEX kms_index on emp_kms(EMPLOYEE_ID);
+select * from emp_kms;
+ALTER TABLE emp_kms add constraint kms_unique unique(employee_id);
+
+SELECT * FROM USER_CONSTRAINTS;
+
+CREATE SEQUENCE kms_seq 
+    START WITH 3
+    INCREMENT BY 2
+    MAXVALUE 30
+    CACHE 20;
+
+select kms_seq.nextval from dual;
+select kms_seq.currval from dual;
+
+SELECT * from USER_SEQUENCES;
+SELECT * FROM user_objects;
+
+SELECT * FROM emp_kms;
+
+CREATE VIEW emp_mag (employee_id, employee_name, manager_name, department_id) 
+as SELECT e.employee_id, e.first_name || ' ' || e.last_name fname, m.first_name, e.department_id
+from emp_kms e, emp_kms m
+where e.manager_id = m.employee_id;
+
+SELECT * FROM emp_mag;
+
+
+
+SELECT * FROM tabs;
+
+SELECT * FROM author,book where book.author_id = author.author_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

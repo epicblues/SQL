@@ -154,6 +154,5 @@ CREATE SEQUENCE SEQ_BOOK_ID
 SELECT * FROM USER_SEQUENCES;
 
 desc book;
-
-
-    
+select * from USER_OBJECTS where OBJECT_TYPE = 'SEQUENCE';
+select * from employees; 
