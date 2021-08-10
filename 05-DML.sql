@@ -10,7 +10,7 @@ values(1, '박경리', '토지 작가');
 -- INSERT : 명시적 방법(컬럼 명시)
 INSERT INTO author
 (author_id, author_name)
-VALUES (2, '김영하');
+VALUES (3, '김선수');
 
 -- 확인
 select * from author;

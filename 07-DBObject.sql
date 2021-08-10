@@ -48,6 +48,7 @@ SELECT * FROM author;
 
 DESC book;
 select * from book;
+truncate table book;
 INSERT INTO book(book_id,title,author_id) values(1,'토지',1);
 INSERT INTO book(book_id,title,author_id) values(2,'살인자의 기억법',2);
 
@@ -140,7 +141,7 @@ SELECT * FROM USER_OBJECTS WHERE OBJECT_TYPE = 'SEQUENCE';
 -- 시퀀스의 삭제
 
 DROP SEQUENCE my_seq;
-
+select * from user_tab_columns where table_name = 'AUTHOR';
 
 -- book의 book_id를 위한 시퀀스 생성
 desc book;
@@ -152,7 +153,11 @@ CREATE SEQUENCE SEQ_BOOK_ID
     MAXVALUE 1000000;
     
 SELECT * FROM USER_SEQUENCES;
-
+desc author;
 desc book;
+select * from user_sequences;
+select my_seq.nextval from dual;
 select * from USER_OBJECTS where OBJECT_TYPE = 'SEQUENCE';
 select * from employees; 
+
+select * from author;
