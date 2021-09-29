@@ -16,3 +16,5 @@ VALUES (seq_emaillist_pk.nextval,'이','민성','lbueha@hanmail.net',DEFAULT);
 SELECT * FROM emaillist;
 
 COMMIT;
+
+SELECT * FROM USER;
